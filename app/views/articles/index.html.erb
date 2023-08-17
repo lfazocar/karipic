@@ -4,12 +4,12 @@
   </div>
 <% end %>
 
-<h1 class="text-center">Articles</h1>
+<h1 class="text-center">Gallery</h1>
 
 <% if user_signed_in? %>
   <% if user_signed_in? %>
     <div class="text-center mb-3">
-      <%= link_to "New article", new_article_path, class: "btn btn-light" %>
+      <%= link_to "Publish Picture", new_article_path, class: "btn btn-light" %>
     </div>
   <% end %>
 <% end %>
@@ -18,14 +18,19 @@
   <% @articles.each do |article| %>
     <div class="col align-self-center">
       <div class="card">
-        <%#= image_tag article.image, class:"card-img-top" %>
+        <%= image_tag article.image, class:"card-img-top border-bottom" if article.image.attached? %>
         <div class="card-body">
           <h5 class="card-title"><%= article.title %></h5>
-          <p class="card-text">Written by <%= article.user.name %></p>
           <p class="card-text"><small class="text-body-secondary"><%= article.created_at.strftime("%d - %m - %Y")%></small></p>
+          <div class="d-flex align-items-center">
+            <% if article.user.profile_picture.attached? %>
+              <%= image_tag article.user.profile_picture, class: "img-thumbnail me-3", style: "height: 50px" %>
+            <% end %>
+            <p class="card-text">Written by <%= article.user.name %></p>
+          </div>
         </div>
         <div class="card-footer text-center">
-          <%= link_to "Show this article", article, class: "btn btn-light" %>
+          <%= link_to "Show this picture", article, class: "btn btn-light" %>
         </div>
       </div>
     </div>
