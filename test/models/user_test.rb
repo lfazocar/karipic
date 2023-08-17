@@ -8,7 +8,7 @@
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime
 #  remember_created_at    :datetime
-#  name                   :string
+#  name                   :string           not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  role                   :integer          default("user")

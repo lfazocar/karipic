@@ -8,7 +8,7 @@
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime
 #  remember_created_at    :datetime
-#  name                   :string
+#  name                   :string           not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  role                   :integer          default("user")
@@ -22,6 +22,9 @@ class User < ApplicationRecord
   # Associations
   has_many :articles, dependent: :destroy
   has_many :comments, dependent: :nullify
+
+  # Validations
+  validates :name, presence: true
 
   # 0 = user, 1 = admin
   enum :role, [:user, :admin]
