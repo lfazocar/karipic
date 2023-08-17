@@ -17,6 +17,18 @@
         <%= f.text_field :name, autocomplete: "username", class: "form-control" %>
       </div>
 
+      <% if current_user.profile_picture.attached? %>
+        <div class="mb-3">
+        <p>Current profile picture:</p>
+          <%= image_tag current_user.profile_picture, class:"img-thumbnail", style:"height: 250px"  %>
+        </div>
+      <% end %>
+
+      <div class="mb-3">
+        <%= f.label :profile_picture, class: "form-label" %>
+        <%= f.file_field :profile_picture, class: "form-control" %>
+      </div>
+
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
         <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
       <% end %>

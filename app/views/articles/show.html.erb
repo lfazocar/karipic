@@ -17,11 +17,18 @@
 <% end %>
 
 <div id="<%= dom_id @article %>" class="mb-3">
-  <div class="text-center mb-3">
-    <%#= image_tag @article.image, class:"img-fluid" %>
-  </div>
   <h1><%= @article.title %></h1>
-  <h6>Posted by <%= @article.user.name %> <small class="text-body-secondary"><%= @article.created_at.strftime("%d - %m - %Y")%></small></h6>
+  <% if @article.image.attached? %>
+    <div class="text-center mb-3">
+      <%= image_tag @article.image, class:"img-fluid" %>
+    </div>
+  <% end %>
+  <div class="d-flex align-items-center mb-3">
+    <% if @article.user.profile_picture.attached? %>
+      <%= image_tag @article.user.profile_picture, class: "img-thumbnail me-3", style: "height: 50px" %>
+    <% end %>
+    <h6 class="mb-0">Posted by <%= @article.user.name %> <small class="text-body-secondary"><%= @article.created_at.strftime("%d - %m - %Y")%></small></h6>
+  </div>
 
   <p>
     <%= @article.description %>
@@ -38,7 +45,12 @@
   <% unless @comments.empty? %>
     <% @comments.each do |comment| %>
       <div class="card mb-3">
-        <h5 class="card-header"><strong><%= comment.user_id.nil? ? 'A deleted user' : User.find(comment.user_id).name %></strong> commented:</h5>
+        <div class="card-header d-flex align-items-center">
+          <% if comment.user.profile_picture.attached? %>
+            <%= image_tag comment.user.profile_picture, class: "img-thumbnail me-3", style: "height: 50px" %>
+          <% end %>
+          <h5 class="mb-0"><strong><%= comment.user_id.nil? ? 'A deleted user' : User.find(comment.user_id).name %></strong> commented:</h5>
+        </div>
         <div class="card-body">
           <p class="card-text"><%= comment.content %></p>
         </div>

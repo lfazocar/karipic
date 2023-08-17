@@ -13,6 +13,7 @@ class Article < ApplicationRecord
   # Associations
   belongs_to :user
   has_many :comments, dependent: :destroy
+  has_one_attached :image
 
   # Validations
   validates :title, presence: true

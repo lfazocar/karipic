@@ -22,6 +22,7 @@ class User < ApplicationRecord
   # Associations
   has_many :articles, dependent: :destroy
   has_many :comments, dependent: :nullify
+  has_one_attached :profile_picture
 
   # Validations
   validates :name, presence: true
